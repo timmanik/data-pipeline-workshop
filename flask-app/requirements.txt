@@ -1,0 +1,11 @@
+Flask
+Werkzeug
+python-dotenv
+pandas
+numpy>=2
+sqlalchemy==2.0.0
+psycopg2-binary==2.9.6
+markupsafe==2.0.1
+matplotlib
+seaborn
+folium==0.14.0

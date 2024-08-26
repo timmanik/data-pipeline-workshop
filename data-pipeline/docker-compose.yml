@@ -1,0 +1,73 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      - mynetwork
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  extract:
+    build:
+      context: .
+      target: extract
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    networks:
+      - mynetwork      
+    volumes:
+      - shared-data:/data
+    depends_on:
+      - postgres
+
+  load:
+    build:
+      context: .
+      target: load
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    networks:
+      - mynetwork      
+    volumes:
+      - shared-data:/data
+    depends_on:
+      - extract
+
+  transform:
+    build:
+      context: .
+      target: transform
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    networks:
+      - mynetwork      
+    volumes:
+      - shared-data:/data
+    depends_on:
+      - load
+
+volumes:
+  pgdata:
+  shared-data:
+
+networks:
+  mynetwork:
+    driver: bridge
