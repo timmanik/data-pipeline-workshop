@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Weather Data Analysis</h1>
+
+        <!-- Blurb about the dataset -->
+        <div class="mt-3">
+            <p>This dataset comes from the <strong>{{ dataset_info.source }}</strong>. It contains a total of <strong>{{ dataset_info.record_count }}</strong> records. Below is the table structure with column names and their respective data types:</p>
+            {{ dataset_info.columns_info | safe }}
+        </div>
+
+        <!-- Data Table -->
+        <div class="mt-5">
+            <h2>Sample Data</h2>
+            {{ table | safe }}
+        </div>
+
+        <!-- Histogram Plot -->
+        <div class="mt-5">
+            <h2>Temperature Distribution</h2>
+            <img src="{{ url_for('plot') }}" alt="Temperature Distribution">
+        </div>
+
+        <!-- Blurb about the temperature distribution -->
+        <div class="mt-3">
+            <p>The histogram above shows the distribution of temperature values in the dataset. The data is spread across a range of temperatures, with the most frequent temperatures being around the mean value.</p>
+        </div>
+    </div>
+</body>
+</html>
