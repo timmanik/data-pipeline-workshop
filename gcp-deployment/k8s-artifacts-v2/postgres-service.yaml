@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: postgres
 spec:
+  type: ClusterIP  # Uses ClusterIP instead of LoadBalancer because we don't want to expose the database to the public internet
   selector:
     app: postgres
   ports:

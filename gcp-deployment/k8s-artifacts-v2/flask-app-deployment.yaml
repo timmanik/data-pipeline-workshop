@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: gcr.io/${PROJECT_ID}/flask-app:latest
+        image: gcr.io/YOUR_PROJECT_ID/flask-app:latest
         envFrom:
         - secretRef:
             name: db-credentials
