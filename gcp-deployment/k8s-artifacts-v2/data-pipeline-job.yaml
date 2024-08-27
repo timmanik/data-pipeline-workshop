@@ -1,26 +1,66 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: data-pipeline
+  name: extract-job
 spec:
   template:
-    metadata:
-      name: data-pipeline
     spec:
       restartPolicy: OnFailure
+      volumes:
+      - name: shared-data
+        emptyDir: {}
       containers:
       - name: extract
         image: gcr.io/${PROJECT_ID}/data-pipeline-extract:latest
         envFrom:
         - secretRef:
             name: db-credentials
+        volumeMounts:
+        - name: shared-data
+          mountPath: /data
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: load-job
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      volumes:
+      - name: shared-data
+        emptyDir: {}
+      containers:
       - name: load
         image: gcr.io/${PROJECT_ID}/data-pipeline-load:latest
         envFrom:
         - secretRef:
             name: db-credentials
+        volumeMounts:
+        - name: shared-data
+          mountPath: /data
+  dependencies:
+    - extractJob
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: transform-job
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      volumes:
+      - name: shared-data
+        emptyDir: {}
+      containers:
       - name: transform
         image: gcr.io/${PROJECT_ID}/data-pipeline-transform:latest
         envFrom:
         - secretRef:
             name: db-credentials
+        volumeMounts:
+        - name: shared-data
+          mountPath: /data
+  dependencies:
+    - loadJob
