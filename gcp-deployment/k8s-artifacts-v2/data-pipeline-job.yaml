@@ -14,7 +14,7 @@ spec:
             emptyDir: {}
           initContainers:
           - name: extract
-            image: gcr.io/YOUR_PROJECT_ID/data-pipeline-extract:latest
+            image: gcr.io/${PROJECT_ID}/data-pipeline-extract:latest
             envFrom:
             - secretRef:
                 name: db-credentials
@@ -22,7 +22,7 @@ spec:
             - name: shared-data
               mountPath: /data
           - name: load
-            image: gcr.io/YOUR_PROJECT_ID/data-pipeline-load:latest
+            image: gcr.io/${PROJECT_ID}/data-pipeline-load:latest
             envFrom:
             - secretRef:
                 name: db-credentials
@@ -31,7 +31,7 @@ spec:
               mountPath: /data
           containers:
           - name: transform
-            image: gcr.io/YOUR_PROJECT_ID/data-pipeline-transform:latest
+            image: gcr.io/${PROJECT_ID}/data-pipeline-transform:latest
             envFrom:
             - secretRef:
                 name: db-credentials
