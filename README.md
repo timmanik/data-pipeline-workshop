@@ -31,13 +31,19 @@ data-pipeline-workshop/
 │   │   ├── index.html
 │   │   └── layout.html
 │   └── docker-compose.yml
-└── gcp-deployment/
-    └── k8s-artifacts/
-        ├── postgres-deployment.yaml
-        ├── data-pipeline-job.yaml
-        ├── flask-app-deployment.yaml
-        ├── postgres-service.yaml
-        └── flask-app-service.yaml
+├── gcp-deployment/
+│   └── k8s-artifacts/
+│       ├── postgres-deployment.yaml
+│       ├── data-pipeline-job.yaml
+│       ├── data-pipeline-job-dockerhub.yaml
+│       ├── flask-app-deployment.yaml
+│       ├── postgres-service.yaml
+│       └── flask-app-service.yaml
+└── supplementary-guides/
+    ├── README.md
+    ├── docker-compose-troubleshooting.md
+    ├── kubernetes-guide.md
+    └── production-workflow-explanation.md
 ```
 
 ## Components
@@ -48,10 +54,22 @@ data-pipeline-workshop/
 
 3. **GCP Deployment**: Kubernetes manifests for deploying the data pipeline and Flask app on Google Cloud Platform.
 
+4. **Supplementary Guides**: Additional documentation to help with understanding and troubleshooting various aspects of the workshop.
+
+## Supplementary Guides
+
+The `supplementary-guides/` directory contains additional resources to help you navigate the workshop:
+
+- `README.md`: An overview of the supplementary guides.
+- `docker-compose-troubleshooting.md`: Tips for resolving common issues with Docker Compose.
+- `kubernetes-guide.md`: A primer on Kubernetes concepts and usage in this project.
+- `production-workflow-explanation.md`: Explains how this proof-of-concept can be turned into a production-ready workflow.
+
 ## Getting Started
 
 1. Clone this repository
 2. Follow the instructions in each component's directory to build and run the containers locally
-3. Use the Kubernetes manifests in the `gcp-deployment` directory to deploy the application to GCP
+3. Refer to the supplementary guides for additional help and context
+4. Use the Kubernetes manifests in the `gcp-deployment` directory to deploy the application to GCP
 
-For detailed instructions on using this project for learning purposes, please refer to the workshop materials.
+For detailed instructions on using this project for learning purposes, please refer to the workshop materials and supplementary guides.
