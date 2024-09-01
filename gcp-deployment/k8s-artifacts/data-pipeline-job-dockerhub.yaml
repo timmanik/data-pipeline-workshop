@@ -14,7 +14,7 @@ spec:
             emptyDir: {}
           initContainers:
           - name: extract
-            image: us-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/data-pipeline-extract:latest
+            image: timmanik1/data-pipeline-extract:latest
             envFrom:
             - secretRef:
                 name: db-credentials
@@ -22,7 +22,7 @@ spec:
             - name: shared-data
               mountPath: /data
           - name: load
-            image: us-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/data-pipeline-load:latest
+            image: timmanik1/data-pipeline-load:latest
             envFrom:
             - secretRef:
                 name: db-credentials
@@ -31,7 +31,7 @@ spec:
               mountPath: /data
           containers:
           - name: transform
-            image: us-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/data-pipeline-transform:latest
+            image: timmanik1/data-pipeline-transform:latest
             envFrom:
             - secretRef:
                 name: db-credentials
