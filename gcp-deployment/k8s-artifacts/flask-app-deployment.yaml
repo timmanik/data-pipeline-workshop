@@ -19,4 +19,4 @@ spec:
         - secretRef:
             name: db-credentials
         ports:
-        - containerPort: 5000
+        - containerPort: 8080
