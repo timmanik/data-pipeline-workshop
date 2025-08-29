@@ -38,4 +38,4 @@ USER appuser
 EXPOSE 8080
 
 # Run Flask app with exec form
-CMD ["python", "app.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
